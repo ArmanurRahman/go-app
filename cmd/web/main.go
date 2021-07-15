@@ -34,5 +34,16 @@ func main() {
 	//http.HandleFunc("/devide", Devide)
 
 	fmt.Println("Starting listining to port ", port)
-	_ = http.ListenAndServe(port, nil)
+	//_ = http.ListenAndServe(port, nil)
+
+	srv := &http.Server{
+		Addr:    port,
+		Handler: routes(&app),
+	}
+
+	err = srv.ListenAndServe()
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
